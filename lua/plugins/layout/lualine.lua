@@ -5,10 +5,9 @@ return {
     opts = {
         options = {
             icons_enabled = true,
-            theme = 'catppuccin',
-            -- theme = 'dracula',
-            component_separators = { left = '', right = '' },
-            section_separators = { left = '', right = '' },
+            theme = 'dracula',
+            component_separators = { left = '\\', right = '/' },
+            section_separators = { left = '', right = '' },
             globalstatus = true,
         },
         refresh = {
