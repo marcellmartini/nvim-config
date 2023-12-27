@@ -3,7 +3,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Quit all
-vim.keymap.set('n', '<leader>x', '<cmd>wqa<CR>', { desc = 'Quit' })
+vim.keymap.set('n', '<leader>qw', '<cmd>wqa<CR>', { desc = 'Quit' })
 
 -- Save all
 vim.keymap.set('n', '<C-s>', '<cmd>w<CR>', { desc = 'Save' })
