@@ -3,21 +3,25 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Quit all
-vim.keymap.set('n', '<leader>qw', '<cmd>wqa<CR>', { desc = 'Quit' })
+vim.keymap.set('n', '<leader>qw', '<cmd>wqa<CR>', { desc = '[S]ave and [Q]uit' })
+vim.keymap.set('n', '<leader>qq', '<cmd>qa<CR>', { desc = '[Q]uit' })
 
 -- Save all
 vim.keymap.set('n', '<C-s>', '<cmd>w<CR>', { desc = 'Save' })
 
 -- My nvim configs
 vim.wo.relativenumber = true
+vim.wo.wrap = true
+vim.wo.linebreak = true
+vim.o.textwidth = 80
+-- vim.wo.list = false -- extra option I set in addition to the ones in your question
+
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 
 vim.opt.smartindent = true
-
-vim.opt.wrap = false
 
 vim.opt.swapfile = false
 vim.opt.backup = false
@@ -79,5 +83,8 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     group = highlight_group,
     pattern = '*',
 })
+
+-- greatest remap ever
+vim.keymap.set("x", "<leader>p", [["_dP]])
 
 return {}
