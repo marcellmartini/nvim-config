@@ -3,7 +3,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 -- Quit all
-vim.keymap.set("n", "<leader>qw", "<cmd>wqa<CR>", { desc = "[S]ave and [Q]uit" })
+vim.keymap.set("n", "<leader>wq", "<cmd>wqa<CR>", { desc = "[S]ave and [Q]uit" })
 vim.keymap.set("n", "<leader>qq", "<cmd>qa<CR>", { desc = "[Q]uit" })
 
 -- Save all
@@ -85,6 +85,14 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     group = highlight_group,
     pattern = "*",
 })
+
+-- automatically set the tmux session name
+-- based on the directory you are editing with
+-- Neovim
+vim.api.nvim_exec(
+    [[ autocmd BufEnter * :lua vim.fn.system("tmux rename-session " .. vim.fn.system("basename $(git rev-parse --show-toplevel)")) ]],
+    false
+)
 
 -- greatest remap ever
 vim.keymap.set("x", "<leader>p", [["_dP]])
