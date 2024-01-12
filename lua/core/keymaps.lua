@@ -35,6 +35,7 @@ return {
 
 	-- others
 	Map("n", "J", "mzJ`z"),
+	Map("n", "<C-o>", "<C-o>zz"),
 	Map("n", "<C-d>", "<C-d>zz"),
 	Map("n", "<C-u>", "<C-u>zz"),
 	Map("n", "#", "#zz"),
