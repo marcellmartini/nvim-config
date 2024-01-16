@@ -72,26 +72,25 @@ vim.o.timeoutlen = 300
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = "menuone,noselect"
 
--- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost", {
-    callback = function()
-        vim.highlight.on_yank()
-    end,
-    group = highlight_group,
-    pattern = "*",
+	callback = function()
+		vim.highlight.on_yank()
+	end,
+	group = highlight_group,
+	pattern = "*",
 })
 
 -- automatically set the tmux session name
 -- based on the directory you are editing with
 -- Neovim
 vim.api.nvim_exec(
-    [[ autocmd BufEnter * :lua vim.fn.system("tmux rename-session " .. vim.fn.system("basename $(git rev-parse --show-toplevel)")) ]],
-    false
+	[[ autocmd BufEnter * :lua vim.fn.system("tmux rename-session " .. vim.fn.system("basename $(git rev-parse --show-toplevel)")) ]],
+	false
 )
 
 -- greatest remap ever
