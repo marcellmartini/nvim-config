@@ -23,6 +23,7 @@ return {
 				"golines",
 				"gotests",
 				"impl",
+				"delve",
 			},
 		})
 	end,
