@@ -12,14 +12,20 @@ return {
 			harpoon.ui:toggle_quick_menu(harpoon:list())
 		end)
 
-		Map("n", "<A-h>", function()
+		Map("n", "<A-j>", function()
 			harpoon:list():select(1)
 		end)
-		Map("n", "<A-t>", function()
+		Map("n", "<A-k>", function()
 			harpoon:list():select(2)
 		end)
-		Map("n", "<A-n>", function()
+		Map("n", "<A-l>", function()
 			harpoon:list():select(3)
+		end)
+		Map("n", "<A-;>", function()
+			harpoon:list():select(4)
+		end)
+		Map("n", "<A-h>", function()
+			harpoon:list():select(5)
 		end)
 	end,
 }
