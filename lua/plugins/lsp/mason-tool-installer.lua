@@ -24,6 +24,16 @@ return {
 				"gotests",
 				"impl",
 				"delve",
+
+				-- Terraform
+				"terraform-ls",
+				"tflint",
+
+				-- Ansible
+				-- "ansible-lint",
+
+				-- Makefile
+				-- "checkmake",
 			},
 		})
 	end,

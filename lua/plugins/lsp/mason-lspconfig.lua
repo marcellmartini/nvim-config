@@ -45,6 +45,10 @@ return {
 					-- diagnostics = { disable = { 'missing-fields' } },
 				},
 			},
+			terraformls = {
+				filetypes = { "terraform", "terraform-vars", "tf" },
+				cmd = { "terraform-ls", "serve" },
+			},
 		}
 
 		local on_attach = function(_, bufnr)
