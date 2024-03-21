@@ -3,24 +3,26 @@ return {
 	dependencies = { "nvim-tree/nvim-web-devicons" },
 	opts = {},
 	config = function()
+		local trouble = require("trouble")
+
 		-- Lua
 		Map("n", "<leader>xx", function()
-			require("trouble").toggle()
+			trouble.toggle()
 		end, { desc = "" })
 		Map("n", "<leader>xw", function()
-			require("trouble").toggle("workspace_diagnostics")
+			trouble.toggle("workspace_diagnostics")
 		end, { desc = "" })
 		Map("n", "<leader>xd", function()
-			require("trouble").toggle("document_diagnostics")
+			trouble.toggle("document_diagnostics")
 		end, { desc = "" })
 		Map("n", "<leader>xq", function()
-			require("trouble").toggle("quickfix")
+			trouble.toggle("quickfix")
 		end, { desc = "" })
 		Map("n", "<leader>xl", function()
-			require("trouble").toggle("loclist")
+			trouble.toggle("loclist")
 		end, { desc = "" })
 		Map("n", "gR", function()
-			require("trouble").toggle("lsp_references")
+			trouble.toggle("lsp_references")
 		end, { desc = "" })
 	end,
 }
