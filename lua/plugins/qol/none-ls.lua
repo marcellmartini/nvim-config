@@ -8,6 +8,7 @@ return {
 			sources = {
 				-- lua
 				null_ls.builtins.formatting.stylua,
+				-- null_ls.builtins.completion.luasnip, -- broken
 
 				-- javascript
 				null_ls.builtins.formatting.prettier,
@@ -17,9 +18,24 @@ return {
 				null_ls.builtins.formatting.gofumpt,
 				null_ls.builtins.formatting.goimports_reviser,
 				null_ls.builtins.formatting.golines,
-				-- null_ls.builtins.formatting.impl,
+				null_ls.builtins.code_actions.gomodifytags,
+				null_ls.builtins.code_actions.impl,
+
 				-- spell words
 				-- null_ls.builtins.completion.spell,
+
+				-- shell
+				null_ls.builtins.formatting.shfmt,
+				null_ls.builtins.code_actions.shellcheck,
+
+				-- terraform
+				null_ls.builtins.diagnostics.tflint,
+
+				-- Ansible
+				null_ls.builtins.diagnostics.ansiblelint,
+
+				-- Makefile
+				null_ls.builtins.diagnostics.checkmake,
 			},
 			on_attach = function(client, bufnr)
 				if client.supports_method("textDocument/formatting") then
