@@ -69,6 +69,10 @@ vim.wo.signcolumn = "yes"
 vim.o.updatetime = 250
 vim.o.timeoutlen = 300
 
+-- Configure how new splits should be opened
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = "menuone,noselect"
 
@@ -86,12 +90,13 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 -- automatically set the tmux session name
--- based on the directory you are editing with
--- Neovim
-vim.api.nvim_exec(
-	[[ autocmd BufEnter * :lua vim.fn.system("tmux rename-session " .. vim.fn.system("basename $(git rev-parse --show-toplevel)")) ]],
-	false
-)
+-- to the git basename directory
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+	pattern = { "*" },
+	callback = function()
+		vim.fn.system("tmux rename-session " .. vim.fn.system("basename $(git rev-parse --show-toplevel)"))
+	end,
+})
 
 -- greatest remap ever
 vim.keymap.set("x", "<leader>p", [["_dP]])
