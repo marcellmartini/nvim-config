@@ -26,10 +26,10 @@ return {
 
 				-- shell
 				null_ls.builtins.formatting.shfmt,
-				null_ls.builtins.code_actions.shellcheck,
+				-- null_ls.builtins.code_actions.shellcheck,
 
 				-- terraform
-				null_ls.builtins.diagnostics.tflint,
+				-- null_ls.builtins.diagnostics.tflint,
 
 				-- Ansible
 				null_ls.builtins.diagnostics.ansiblelint,
