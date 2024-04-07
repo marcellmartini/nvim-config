@@ -1,4 +1,4 @@
 return {
-	-- Git related plugins
-	"tpope/vim-rhubarb",
+    -- Git related plugins
+    "tpope/vim-rhubarb",
 }

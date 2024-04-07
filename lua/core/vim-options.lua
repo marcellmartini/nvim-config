@@ -82,20 +82,20 @@ vim.o.termguicolors = true
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost", {
-	callback = function()
-		vim.highlight.on_yank()
-	end,
-	group = highlight_group,
-	pattern = "*",
+    callback = function()
+        vim.highlight.on_yank()
+    end,
+    group = highlight_group,
+    pattern = "*",
 })
 
 -- automatically set the tmux session name
 -- to the git basename directory
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
-	pattern = { "*" },
-	callback = function()
-		vim.fn.system("tmux rename-session " .. vim.fn.system("basename $(git rev-parse --show-toplevel)"))
-	end,
+    pattern = { "*" },
+    callback = function()
+        vim.fn.system("tmux rename-session " .. vim.fn.system("basename $(git rev-parse --show-toplevel)"))
+    end,
 })
 
 -- greatest remap ever

@@ -1,17 +1,17 @@
 return {
-	-- Set lualine as statusline
-	"nvim-lualine/lualine.nvim",
-	-- See `:help lualine.txt`
-	opts = {
-		options = {
-			icons_enabled = true,
-			theme = "catppuccin",
-			component_separators = { left = "\\", right = "/" },
-			section_separators = { left = "", right = "" },
-			globalstatus = true,
-		},
-		refresh = {
-			statusline = 350,
-		},
-	},
+    -- Set lualine as statusline
+    "nvim-lualine/lualine.nvim",
+    -- See `:help lualine.txt`
+    opts = {
+        options = {
+            icons_enabled = true,
+            theme = "catppuccin",
+            component_separators = { left = "\\", right = "/" },
+            section_separators = { left = "", right = "" },
+            globalstatus = true,
+        },
+        refresh = {
+            statusline = 350,
+        },
+    },
 }
