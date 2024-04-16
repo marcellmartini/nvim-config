@@ -72,18 +72,24 @@ return { -- LSP Configuration & Plugins
         local capabilities = vim.lsp.protocol.make_client_capabilities()
         capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
+        local util = require("lspconfig.util")
+
         local servers = {
-            gopls = {},
-            -- gopls = {
-            --     analyses = {
-            --         unusedparams = true,
-            --     },
-            --     filetypes = { "go", "gomod", "gowork", "gotmpl" },
-            --     gofumpt = true,
-            --     staticcheck = true,
-            --     completeUninported = true,
-            --     usePlaceholders = true,
-            -- },
+            gopls = {
+                filetypes = { "go", "gomod", "gowork", "gotmpl" },
+                root_dir = util.root_pattern("go.work", "go.mod", ".git"),
+                settings = {
+                    gopls = {
+                        completeUnimported = true,
+                        usePlaceholders = true,
+                        analyses = {
+                            unusedparams = true,
+                        },
+                        gofumpt = true,
+                        staticcheck = true,
+                    },
+                },
+            },
             tsserver = {
                 filetypes = {
                     "javascript",
@@ -116,6 +122,7 @@ return { -- LSP Configuration & Plugins
                 },
             },
             terraformls = {
+                root_dir = util.root_pattern(".terraform", ".git"),
                 filetypes = { "terraform", "tf" },
                 cmd = { "terraform-ls", "serve" },
             },
@@ -127,6 +134,8 @@ return { -- LSP Configuration & Plugins
         }
         require("mason").setup()
 
+        -- You can add other tools here that you want Mason to install
+        -- for you, so that they are available from within Neovim.
         local ensure_installed = vim.tbl_keys(servers or {})
         vim.list_extend(ensure_installed, {
             -- LUA
@@ -140,13 +149,14 @@ return { -- LSP Configuration & Plugins
             "shellcheck",
 
             -- GO
-            -- "gopls",
-            -- "gofumpt",
-            "goimports-reviser",
-            "golines",
+            "gofumpt",           -- used in none-ls
+            "staticcheck",
+            "goimports-reviser", -- used in none-ls
+            "golines",           -- used in none-ls
             "gotests",
-            "impl",
-            "delve",
+            "gomodifytags",      -- used in none-ls
+            "impl",              -- used in none-ls
+            "delve",             -- used in nvim-dap-go
 
             -- Terraform
             -- "terraform-ls",

@@ -24,7 +24,7 @@ return { -- Autoformat
             }
         end,
         formatters_by_ft = {
-            go = { "gofumpt", "goimports-reviser", "golines" },
+            -- go = { "gofumpt", "goimports-reviser", "golines" },
             terraform = { "terraform_fmt" },
             -- lua = { "stylua" },
             -- Conform can also run multiple formatters sequentially

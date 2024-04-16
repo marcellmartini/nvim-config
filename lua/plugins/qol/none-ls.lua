@@ -15,11 +15,11 @@ return {
                 -- null_ls.builtins.diagnostics.eslint,
 
                 -- Go Lang
-                -- null_ls.builtins.formatting.gofumpt,
-                -- null_ls.builtins.formatting.goimports_reviser,
-                -- null_ls.builtins.formatting.golines,
-                -- null_ls.builtins.code_actions.gomodifytags,
-                -- null_ls.builtins.code_actions.impl,
+                null_ls.builtins.formatting.gofumpt,
+                null_ls.builtins.formatting.goimports_reviser,
+                null_ls.builtins.formatting.golines,
+                null_ls.builtins.code_actions.gomodifytags,
+                null_ls.builtins.code_actions.impl,
 
                 -- spell words
                 -- null_ls.builtins.completion.spell,
