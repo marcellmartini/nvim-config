@@ -6,7 +6,7 @@ return {
         local harpoon = require("harpoon")
 
         Map("n", "<A-a>", function()
-            harpoon:list():append()
+            harpoon:list():add()
         end)
         Map("n", "<A-e>", function()
             harpoon.ui:toggle_quick_menu(harpoon:list())
