@@ -1,11 +1,11 @@
-return { -- LSP Configuration & Plugins
-    "neovim/nvim-lspconfig",
+return {                     -- LSP Configuration & Plugins
+    "neovim/nvim-lspconfig", -- help neovim comunicate with LSP.
     dependencies = {
         -- Automatically install LSPs and related tools to stdpath for Neovim
-        "williamboman/mason-lspconfig.nvim",
-        "williamboman/mason.nvim",
-        "hrsh7th/nvim-cmp",
-        "WhoIsSethDaniel/mason-tool-installer.nvim",
+        "williamboman/mason-lspconfig.nvim",         -- config lsp
+        "williamboman/mason.nvim",                   -- software install
+        "hrsh7th/nvim-cmp",                          -- autocomplete snippet
+        "WhoIsSethDaniel/mason-tool-installer.nvim", -- mason Automatically install software
 
         -- Useful status updates for LSP.
         -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
@@ -65,6 +65,23 @@ return { -- LSP Configuration & Plugins
                         callback = vim.lsp.buf.clear_references,
                     })
                 end
+
+                local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+                if client.supports_method("textDocument/formatting") then
+                    vim.api.nvim_clear_autocmds({
+                        group = augroup,
+                        buffer = event.buf,
+                    })
+                    vim.api.nvim_create_autocmd("BufWritePre", {
+                        group = augroup,
+                        buffer = event.buf,
+                        callback = function()
+                            vim.lsp.buf.format({ bufnr = event.buf })
+                        end,
+                    })
+                end
+
+                Map("n", "<leader>bf", vim.lsp.buf.format, { desc = "[B]uffer [F]ormat" })
             end,
         })
 
@@ -90,83 +107,120 @@ return { -- LSP Configuration & Plugins
                     },
                 },
             },
-            tsserver = {
-                filetypes = {
-                    "javascript",
-                    "javascriptreact",
-                    "javascript.jsx",
-                    "typescript",
-                    "typescriptreact",
-                    "typescript.tsx",
-                },
-                init_options = {
-                    preferences = {
-                        disablesuggestions = true,
-                    },
-                },
-                -- commands = {
-                --     organizeimports = {
-                --         organize_imports,
-                --         description = "organize imports",
-                --     },
-                -- },
-            },
+            -- tsserver = {
+            --     filetypes = {
+            --         'javascript',
+            --         'javascriptreact',
+            --         'javascript.jsx',
+            --         'typescript',
+            --         'typescriptreact',
+            --         'typescript.tsx',
+            --     },
+            --     init_options = {
+            --         preferences = {
+            --             disablesuggestions = true,
+            --         },
+            --     },
+            --     -- commands = {
+            --     --     organizeimports = {
+            --     --         organize_imports,
+            --     --         description = 'organize imports',
+            --     --     },
+            --     -- },
+            -- },
             -- snyk_ls = {},
             lua_ls = {
-                lua = {
-                    workspace = { checkthirdparty = false },
-                    telemetry = { enable = false },
-                    filetypes = { "lua" }
-                    -- note: toggle below to ignore lua_ls's noisy `missing-fields` warnings
-                    -- diagnostics = { disable = { 'missing-fields' } },
+                filetypes = { "lua" },
+                root_dir = util.root_pattern(
+                    ".luarc.json",
+                    ".luarc.jsonc",
+                    ".luacheckrc",
+                    ".stylua.toml",
+                    "stylua.toml",
+                    "selene.toml",
+                    "selene.yml",
+                    ".git"
+                ),
+                settings = {
+                    Lua = {
+                        runtime = {
+                            -- Tell the language server which version of Lua you're using
+                            -- (most likely LuaJIT in the case of Neovim)
+                            version = "LuaJIT",
+                        },
+                        -- Make the server aware of Neovim runtime files
+                        workspace = {
+                            checkThirdParty = false,
+                            library = {
+                                vim.env.VIMRUNTIME,
+                                -- Depending on the usage, you might want to add additional paths here.
+                                -- '${3rd}/luv/library'
+                                -- '${3rd}/busted/library',
+                            },
+                            -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
+                            -- library = vim.api.nvim_get_runtime_file('', true)
+                        },
+                        telemetry = { enable = false },
+                        format = {
+                            enable = true,
+                            -- Put format options here
+                            -- NOTE: the value should be String!
+                            defaultConfig = {
+                                indent_style = "space",
+                                indent_size = 4,
+                            },
+                        },
+                        completion = {
+                            callSnippet = "Replace",
+                        },
+                        -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
+                        -- diagnostics = { disable = { 'missing-fields' } },
+                    },
                 },
             },
             terraformls = {
+                filetypes = { "terraform", "terraform-vars" },
                 root_dir = util.root_pattern(".terraform", ".git"),
-                filetypes = { "terraform", "tf" },
-                cmd = { "terraform-ls", "serve" },
             },
-
             tflint = {
                 filetypes = { "terraform" },
                 cmd = { "tflint", "--langserver" },
             },
         }
+
+        -- Configure mason
         require("mason").setup()
 
         -- You can add other tools here that you want Mason to install
         -- for you, so that they are available from within Neovim.
         local ensure_installed = vim.tbl_keys(servers or {})
         vim.list_extend(ensure_installed, {
-            -- LUA
-            -- "stylua", -- Used to format Lua code
-
-            -- Fix words
-            "misspell",
-
-            -- Shell
+            -- lua
+            "stylua", -- used in none-ls - Used to format Lua code
+            --
+            -- -- Fix words
+            -- 'misspell',
+            --
+            -- shell
             "shfmt",
-            "shellcheck",
-
+            -- 'shellharden',
+            -- 'shellcheck',
+            --
             -- GO
             "gofumpt",           -- used in none-ls
-            "staticcheck",
             "goimports-reviser", -- used in none-ls
             "golines",           -- used in none-ls
-            "gotests",
             "gomodifytags",      -- used in none-ls
             "impl",              -- used in none-ls
-            "delve",             -- used in nvim-dap-go
-
-            -- Terraform
-            -- "terraform-ls",
-            -- "tflint",
-
-            -- Ansible
-            -- "ansible-lint",
-
-            -- Makefile
-            "checkmake",
+            "staticcheck",       -- used in gopls configure in nvim-lspconfig
+            -- 'gotests',
+            -- 'delve',             -- used in nvim-dap-go
+            --
+            -- -- Ansible
+            -- -- 'ansible-lint',
+            --
+            -- -- Makefile
+            -- 'checkmake',
         })
         require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
@@ -176,7 +230,8 @@ return { -- LSP Configuration & Plugins
                     local server = servers[server_name] or {}
                     -- This handles overriding only values explicitly passed
                     -- by the server configuration above. Useful when disabling
-                    -- certain features of an LSP (for example, turning off formatting for tsserver)
+                    -- certain features of an LSP (for example, turning off
+                    -- formatting for tsserver)
                     server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
                     require("lspconfig")[server_name].setup(server)
                 end,

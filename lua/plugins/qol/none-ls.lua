@@ -1,5 +1,6 @@
-return {
+return { -- Work as a LSP, but to tool that are not talk LSP, like gofumpt.
     "nvimtools/none-ls.nvim",
+    priority = 900,
     config = function()
         local null_ls = require("null-ls")
         local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
@@ -7,7 +8,7 @@ return {
         null_ls.setup({
             sources = {
                 -- lua
-                -- null_ls.builtins.formatting.stylua,
+                null_ls.builtins.formatting.stylua,
                 -- null_ls.builtins.completion.luasnip, -- broken
 
                 -- javascript
@@ -26,16 +27,14 @@ return {
 
                 -- shell
                 null_ls.builtins.formatting.shfmt,
+                -- null_ls.builtins.formatting.shellharden,
                 -- null_ls.builtins.code_actions.shellcheck,
 
-                -- terraform
-                -- null_ls.builtins.diagnostics.tflint,
-
                 -- Ansible
-                null_ls.builtins.diagnostics.ansiblelint,
+                -- null_ls.builtins.diagnostics.ansiblelint,
 
                 -- Makefile
-                null_ls.builtins.diagnostics.checkmake,
+                -- null_ls.builtins.diagnostics.checkmake,
             },
             on_attach = function(client, bufnr)
                 if client.supports_method("textDocument/formatting") then
@@ -53,7 +52,5 @@ return {
                 end
             end,
         })
-
-        Map("n", "<leader>bf", vim.lsp.buf.format, { desc = "[B]uffer [F]ormat" })
     end,
 }
