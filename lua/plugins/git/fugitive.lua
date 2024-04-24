@@ -29,6 +29,9 @@ end
 
 return {
     "tpope/vim-fugitive",
+    dependencies = {
+        "tpope/vim-rhubarb", -- github cli - hub
+    },
     config = function()
         Map("n", "<leader>gP", "<cmd>Git push <CR>", { desc = "[G]it [P]ush" })
         Map("n", "<leader>gpf", "<cmd>Git push -f<CR>", { desc = "[G]it [P]ush [F]orce" })
