@@ -107,6 +107,21 @@ return {                     -- LSP Configuration & Plugins
                     },
                 },
             },
+            biome = {
+                filetypes = {
+                    "javascript",
+                    "javascriptreact",
+                    "json",
+                    "jsonc",
+                    "typescript",
+                    "typescript.tsx",
+                    "typescriptreact",
+                    "astro",
+                    "svelte",
+                    "vue",
+                },
+                root_dir = util.root_pattern("biome.json", "biome.jsonc", ".git"),
+            },
             -- tsserver = {
             --     filetypes = {
             --         'javascript',
