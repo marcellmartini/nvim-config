@@ -229,7 +229,7 @@ return {                     -- LSP Configuration & Plugins
             "impl",              -- used in none-ls
             "staticcheck",       -- used in gopls configure in nvim-lspconfig
             -- 'gotests',
-            -- 'delve',             -- used in nvim-dap-go
+            "delve",             -- used in nvim-dap-go
             --
             -- -- Ansible
             -- -- 'ansible-lint',
