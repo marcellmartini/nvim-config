@@ -6,6 +6,7 @@ return {
         "antoinemadec/FixCursorHold.nvim",
         "nvim-treesitter/nvim-treesitter",
         "nvim-neotest/neotest-go",
+        "nvim-neotest/neotest-jest",
     },
     config = function()
         -- get neotest namespace (api call creates or returns namespace)
@@ -22,6 +23,14 @@ return {
             -- your neotest config here
             adapters = {
                 require("neotest-go"),
+                require("neotest-jest")({
+                    jestCommand = "npm test --",
+                    jestConfigFile = "jest.config.json",
+                    env = { CI = true },
+                    cwd = function()
+                        return vim.fn.getcwd()
+                    end,
+                }),
             },
         })
 
