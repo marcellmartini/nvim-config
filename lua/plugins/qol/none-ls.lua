@@ -26,7 +26,9 @@ return { -- Work as a LSP, but to tool that are not talk LSP, like gofumpt.
                 -- null_ls.builtins.completion.spell,
 
                 -- shell
-                null_ls.builtins.formatting.shfmt,
+                null_ls.builtins.formatting.shfmt.with({
+                    extra_args = { "-i", "2" },
+                }),
                 -- null_ls.builtins.formatting.shellharden,
                 -- null_ls.builtins.code_actions.shellcheck,
 
