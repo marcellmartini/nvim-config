@@ -5,6 +5,7 @@ return { -- Autocompletion
         "L3MON4D3/LuaSnip",
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/cmp-path",
+        "hrsh7th/cmp-buffer",
 
         -- Adds LSP completion capabilities
         -- configured in file ./mason-lspconfig.lua
@@ -31,7 +32,7 @@ return { -- Autocompletion
                 documentation = cmp.config.window.bordered(),
             },
             completion = {
-                completeopt = "menu,menuone,noinsert",
+                completeopt = "menu,menuone,noinsert,noselect",
             },
             mapping = cmp.mapping.preset.insert({
                 ["<C-n>"] = cmp.mapping.select_next_item(),
@@ -40,7 +41,7 @@ return { -- Autocompletion
                 ["<C-f>"] = cmp.mapping.scroll_docs(4),
                 ["<C-Space>"] = cmp.mapping.complete({}),
                 ["<CR>"] = cmp.mapping.confirm({
-                    behavior = cmp.ConfirmBehavior.Replace,
+                    behavior = cmp.ConfirmBehavior.Insert,
                     select = true,
                 }),
                 ["<Tab>"] = cmp.mapping(function(fallback)
@@ -65,6 +66,7 @@ return { -- Autocompletion
             sources = {
                 { name = "nvim_lsp" },
                 { name = "luasnip" },
+                { name = "path" },
                 { name = "buffer" },
             },
         })
