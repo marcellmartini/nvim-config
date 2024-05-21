@@ -81,8 +81,8 @@ return {
             )
             Map("n", "<leader>sb", "<cmd> Telescope buffers <CR>", { desc = "[S]earch [B]uffers" })
             Map("n", "<leader>so", "<cmd> Telescope oldfiles <CR>", { desc = "[S]earch [O]ldfiles" })
-            Map("n", "<leader>sc", "<cmd> Telescope colorscheme <CR>", { desc = "[S]earch [C]olorscheme" })
-            Map("n", "<leader>sC", "<cmd> Telescope git_commits <CR>", { desc = "[S]earch Git [C]commits" })
+            Map("n", "<leader>sC", "<cmd> Telescope colorscheme <CR>", { desc = "[S]earch [C]olorscheme" })
+            Map("n", "<leader>sc", "<cmd> Telescope git_commits <CR>", { desc = "[S]earch Git [C]commits" })
         end,
     },
 }
