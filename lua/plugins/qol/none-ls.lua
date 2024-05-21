@@ -37,6 +37,9 @@ return { -- Work as a LSP, but to tool that are not talk LSP, like gofumpt.
 
                 -- Makefile
                 -- null_ls.builtins.diagnostics.checkmake,
+
+                -- Dockerfile
+                null_ls.builtins.diagnostics.hadolint,
             },
             on_attach = function(client, bufnr)
                 if client.supports_method("textDocument/formatting") then

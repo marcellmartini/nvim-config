@@ -213,9 +213,9 @@ return {                     -- LSP Configuration & Plugins
             -- lua
             "stylua", -- used in none-ls - Used to format Lua code
             --
-            -- -- Fix words
+            -- Fix words
             -- 'misspell',
-            --
+
             -- shell
             "shfmt",
             -- 'shellharden',
@@ -230,12 +230,15 @@ return {                     -- LSP Configuration & Plugins
             "staticcheck",       -- used in gopls configure in nvim-lspconfig
             -- 'gotests',
             "delve",             -- used in nvim-dap-go
-            --
-            -- -- Ansible
-            -- -- 'ansible-lint',
-            --
-            -- -- Makefile
+
+            -- Ansible
+            -- 'ansible-lint',
+
+            -- Makefile
             -- 'checkmake',
+
+            -- Dockerfile
+            "hadolint",
         })
         require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
