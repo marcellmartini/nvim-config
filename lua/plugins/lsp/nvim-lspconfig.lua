@@ -218,9 +218,9 @@ return {                     -- LSP Configuration & Plugins
 
             -- shell
             "shfmt",
+            "shellcheck",
             -- 'shellharden',
-            -- 'shellcheck',
-            --
+
             -- GO
             "gofumpt",           -- used in none-ls
             "goimports-reviser", -- used in none-ls

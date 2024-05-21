@@ -1,5 +1,8 @@
 return { -- Work as a LSP, but to tool that are not talk LSP, like gofumpt.
     "nvimtools/none-ls.nvim",
+    dependencies = {
+        "gbprod/none-ls-shellcheck.nvim",
+    },
     priority = 900,
     config = function()
         local null_ls = require("null-ls")
@@ -30,7 +33,8 @@ return { -- Work as a LSP, but to tool that are not talk LSP, like gofumpt.
                     extra_args = { "-i", "2" },
                 }),
                 -- null_ls.builtins.formatting.shellharden,
-                -- null_ls.builtins.code_actions.shellcheck,
+                require("none-ls-shellcheck.diagnostics"),
+                require("none-ls-shellcheck.code_actions"),
 
                 -- Ansible
                 -- null_ls.builtins.diagnostics.ansiblelint,
