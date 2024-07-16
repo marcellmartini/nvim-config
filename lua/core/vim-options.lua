@@ -2,6 +2,10 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- VimWIki icons
+vim.g.vimwiki_listsyms = " ○●✓"
+vim.g.vimwiki_listsym_rejected = "-"
+
 -- Quit all
 vim.keymap.set("n", "<leader>wq", "<cmd>wqa<CR>", { desc = "[S]ave and [Q]uit" })
 vim.keymap.set("n", "<leader>qq", "<cmd>qa<CR>", { desc = "[Q]uit" })
