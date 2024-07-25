@@ -1,10 +1,10 @@
-return {                     -- LSP Configuration & Plugins
+return { -- LSP Configuration & Plugins
     "neovim/nvim-lspconfig", -- help neovim comunicate with LSP.
     dependencies = {
         -- Automatically install LSPs and related tools to stdpath for Neovim
-        "williamboman/mason-lspconfig.nvim",         -- config lsp
-        "williamboman/mason.nvim",                   -- software install
-        "hrsh7th/nvim-cmp",                          -- autocomplete snippet
+        "williamboman/mason-lspconfig.nvim", -- config lsp
+        "williamboman/mason.nvim", -- software install
+        "hrsh7th/nvim-cmp", -- autocomplete snippet
         "WhoIsSethDaniel/mason-tool-installer.nvim", -- mason Automatically install software
 
         -- Useful status updates for LSP.
@@ -99,11 +99,36 @@ return {                     -- LSP Configuration & Plugins
                     gopls = {
                         completeUnimported = true,
                         usePlaceholders = true,
+                        codelenses = {
+                            gc_details = false,
+                            generate = true,
+                            regenerate_cgo = true,
+                            run_govulncheck = true,
+                            test = true,
+                            tidy = true,
+                            upgrade_dependency = true,
+                            vendor = true,
+                        },
+                        hints = {
+                            assignVariableTypes = true,
+                            compositeLiteralFields = true,
+                            compositeLiteralTypes = true,
+                            constantValues = true,
+                            functionTypeParameters = true,
+                            parameterNames = true,
+                            rangeVariableTypes = true,
+                        },
                         analyses = {
+                            fieldalignment = true,
+                            nilness = true,
                             unusedparams = true,
+                            unusedwrite = true,
+                            useany = true,
                         },
                         gofumpt = true,
                         staticcheck = true,
+                        directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
+                        semanticTokens = true,
                     },
                 },
             },
@@ -122,27 +147,6 @@ return {                     -- LSP Configuration & Plugins
                 },
                 root_dir = util.root_pattern("biome.json", "biome.jsonc", ".git"),
             },
-            -- tsserver = {
-            --     filetypes = {
-            --         'javascript',
-            --         'javascriptreact',
-            --         'javascript.jsx',
-            --         'typescript',
-            --         'typescriptreact',
-            --         'typescript.tsx',
-            --     },
-            --     init_options = {
-            --         preferences = {
-            --             disablesuggestions = true,
-            --         },
-            --     },
-            --     -- commands = {
-            --     --     organizeimports = {
-            --     --         organize_imports,
-            --     --         description = 'organize imports',
-            --     --     },
-            --     -- },
-            -- },
             -- snyk_ls = {},
             lua_ls = {
                 filetypes = { "lua" },
@@ -194,13 +198,13 @@ return {                     -- LSP Configuration & Plugins
                 },
             },
             terraformls = {
-                filetypes = { "terraform", "terraform-vars" },
+                filetypes = { "tf", "terraform", "terraform-vars" },
                 root_dir = util.root_pattern(".terraform", ".git"),
             },
-            tflint = {
-                filetypes = { "terraform" },
-                cmd = { "tflint", "--langserver" },
-            },
+            -- tflint = {
+            --     filetypes = { "terraform" },
+            --     cmd = { "tflint", "--langserver" },
+            -- },
         }
 
         -- Configure mason
@@ -211,7 +215,7 @@ return {                     -- LSP Configuration & Plugins
         local ensure_installed = vim.tbl_keys(servers or {})
         vim.list_extend(ensure_installed, {
             -- lua
-            "stylua", -- used in none-ls - Used to format Lua code
+            "stylua", -- used in conform.nvim - Used to format Lua code
             --
             -- Fix words
             -- 'misspell',
@@ -222,14 +226,14 @@ return {                     -- LSP Configuration & Plugins
             -- 'shellharden',
 
             -- GO
-            "gofumpt",           -- used in none-ls
-            "goimports-reviser", -- used in none-ls
-            "golines",           -- used in none-ls
-            "gomodifytags",      -- used in none-ls
-            "impl",              -- used in none-ls
-            "staticcheck",       -- used in gopls configure in nvim-lspconfig
+            "gofumpt", -- used in conform.nvim
+            "goimports-reviser", -- used in conform.nvim
+            "golines", -- used in conform.nvim
+            "gomodifytags", -- used in conform.nvim
+            "impl", -- used in conform.nvim
+            "staticcheck", -- used in gopls configure in nvim-lspconfig
             -- 'gotests',
-            "delve",             -- used in nvim-dap-go
+            "delve", -- used in nvim-dap-go
 
             -- Ansible
             -- 'ansible-lint',
@@ -239,6 +243,10 @@ return {                     -- LSP Configuration & Plugins
 
             -- Dockerfile
             "hadolint",
+
+            -- Terraform
+            "tflint",
+            "trivy",
         })
         require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
