@@ -5,6 +5,13 @@ return {
     -- See `:help Map()`
     -- Map({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true }),
 
+    -- Quit all
+    Map("n", "<leader>wq", "<cmd>wqa<CR>", { desc = "[S]ave and [Q]uit" }),
+    Map("n", "<leader>qq", "<cmd>qa<CR>", { desc = "[Q]uit" }),
+
+    -- Save all
+    Map("n", "<C-s>", "<cmd>w<CR>", { desc = "Save" }),
+
     -- Remap for dealing with word wrap
     Map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true }),
     Map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true }),
@@ -30,8 +37,15 @@ return {
     -- Move between tabs
     Map("n", "<TAB>", ":tabNex<CR>", { desc = "[N]ext [T]ab" }),
     Map("n", "<S-TAB>", ":tabp<CR>", { desc = "[P]revious [T]ab" }),
-    Map("n", "<leader>nt", ":tabnew<CR>", { desc = "[N]ew [T]ab" }),
-    Map("n", "<leader>nc", ":tabclose<CR>", { desc = "[N]ew [C]lose" }),
+    Map("n", "<leader>tn", ":tabnew<CR>", { desc = "[T]ab [N]ew" }),
+    Map("n", "<leader>tf", ":tabnew %<CR>", { desc = "[T]ab [N]ew" }),
+    Map("n", "<leader>tx", ":tabclose<CR>", { desc = "[T]ab [C]lose" }),
+
+    -- window management
+    Map("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" }), -- split window vertically
+    Map("n", "<leader>sh", "<C-w>s", { desc = "Split window horizontally" }), -- split window horizontally
+    Map("n", "<leader>se", "<C-w>=", { desc = "Split windows equal size" }), -- make split windows equal width & height
+    Map("n", "<leader>sx", "<cmd>close<CR>", { desc = "Split windows Close" }), -- close current split window
 
     -- others
     Map("n", "J", "mzJ`z"),
