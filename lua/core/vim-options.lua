@@ -108,5 +108,3 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 
 -- greatest remap ever
 vim.keymap.set("x", "<leader>p", [['_dP]])
-
-return {}

@@ -17,14 +17,17 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+require("core")
 require("lazy").setup({
     spec = {
-        { import = "core" },           -- ./lua/core/
-        { import = "plugins.base" },   -- ./lua/plugins/base/
-        { import = "plugins.focus" },  -- ./lua/plugins/focus/
-        { import = "plugins.git" },    -- ./lua/plugins/git/
+        { import = "plugins.base" }, -- ./lua/plugins/base/
+        { import = "plugins.focus" }, -- ./lua/plugins/focus/
+        { import = "plugins.git" }, -- ./lua/plugins/git/
         { import = "plugins.layout" }, -- ./lua/plugins/layout/
-        { import = "plugins.lsp" },    -- ./lua/plugins/lsp/
-        { import = "plugins.qol" },    -- ./lua/plugins/qol/
+        { import = "plugins.lsp" }, -- ./lua/plugins/lsp/
+        { import = "plugins.qol" }, -- ./lua/plugins/qol/
+    },
+    change_detection = {
+        notify = false,
     },
 })
