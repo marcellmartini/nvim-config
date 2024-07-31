@@ -11,7 +11,7 @@ return {
                 -- rust = { "rustfmt", lsp_format = "fallback" },
                 -- Conform will run the first available formatter
                 javascript = { "biome" },
-                go = { "gofumpt", "goimports_reviser", "golines" },
+                go = { "gofumpt", "goimports-reviser", "golines" },
                 sh = { "shfmt", "shellcheck" },
                 terraform = { "tofu_fmt" },
                 tf = { "tofu_fmt" },
