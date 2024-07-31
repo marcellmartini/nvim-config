@@ -2,7 +2,7 @@
 
 -- Keymaps for better default experience
 -- See `:help Map()`
--- Map({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+Map({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
 -- Quit all
 Map("n", "<leader>wq", "<cmd>wqa<CR>", { desc = "[S]ave and [Q]uit" })
