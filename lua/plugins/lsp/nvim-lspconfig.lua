@@ -181,7 +181,7 @@ return { -- LSP Configuration & Plugins
                         },
                         telemetry = { enable = false },
                         format = {
-                            enable = true,
+                            enable = false,
                             -- Put format options here
                             -- NOTE: the value should be String!
                             defaultConfig = {
