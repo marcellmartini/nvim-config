@@ -61,7 +61,7 @@ return {
             dapui.open()
         end, { desc = "DAP Open UI" })
 
-        Map("n", "<Leader>de", function()
+        Map("n", "<Leader>dx", function()
             dapui.close()
         end, { desc = "DAP Close UI" })
 
