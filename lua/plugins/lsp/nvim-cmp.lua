@@ -14,14 +14,64 @@ return { -- Autocompletion
 
         -- Adds a number of user-friendly snippets
         "rafamadriz/friendly-snippets",
+
+        -- kind of lsp
+        "onsails/lspkind.nvim",
     },
     config = function()
+        local lspkind = require("lspkind")
         local cmp = require("cmp")
         local luasnip = require("luasnip")
+
+        local cmp_kinds = {
+            Function = "",
+            Text = "",
+            Method = "",
+            Constructor = "",
+            Field = "ﰠ",
+            Variable = "",
+            Class = "ﴯ",
+            Interface = "",
+            Module = "",
+            Property = "ﰠ",
+            Unit = "塞",
+            Value = "",
+            Enum = "",
+            Keyword = "",
+            Snippet = "",
+            Color = "",
+            File = "",
+            Reference = "",
+            Folder = "",
+            EnumMember = "",
+            Constant = "",
+            Struct = "פּ",
+            Event = "",
+            Operator = "",
+            TypeParameter = "",
+        }
+
         require("luasnip.loaders.from_vscode").lazy_load() -- use friendly-snippets
         luasnip.config.setup({})
 
         cmp.setup({
+            formatting = {
+                expandable_indicator = true,
+                fields = { "abbr", "kind", "menu" },
+                format = lspkind.cmp_format({
+                    preset = "codicons",
+                    symbol_map = cmp_kinds, -- The glyphs will be used by `lspkind`
+                    async = true,
+                    menu = {
+                        buffer = "[Buffer]",
+                        nvim_lsp = "[LSP]",
+                        luasnip = "[LuaSnip]",
+                        nvim_lua = "[Lua]",
+                        latex_symbols = "[Latex]",
+                        projects = "[Projects]",
+                    },
+                }),
+            },
             snippet = {
                 expand = function(args)
                     luasnip.lsp_expand(args.body)
@@ -39,27 +89,22 @@ return { -- Autocompletion
                 ["<C-p>"] = cmp.mapping.select_prev_item(),
                 ["<C-d>"] = cmp.mapping.scroll_docs(-4),
                 ["<C-f>"] = cmp.mapping.scroll_docs(4),
+                ["<C-y>"] = cmp.mapping.confirm({ select = true }),
                 ["<C-Space>"] = cmp.mapping.complete({}),
                 ["<CR>"] = cmp.mapping.confirm({
                     behavior = cmp.ConfirmBehavior.Insert,
                     select = true,
                 }),
-                ["<Tab>"] = cmp.mapping(function(fallback)
-                    if cmp.visible() then
-                        cmp.select_next_item()
-                    elseif luasnip.expand_or_locally_jumpable() then
+                -- <c-l> will move you to the right of each of the expansion locations.
+                -- <c-h> is similar, except moving you backwards.
+                ["<C-l>"] = cmp.mapping(function()
+                    if luasnip.expand_or_locally_jumpable() then
                         luasnip.expand_or_jump()
-                    else
-                        fallback()
                     end
                 end, { "i", "s" }),
-                ["<S-Tab>"] = cmp.mapping(function(fallback)
-                    if cmp.visible() then
-                        cmp.select_prev_item()
-                    elseif luasnip.locally_jumpable(-1) then
+                ["<C-h>"] = cmp.mapping(function()
+                    if luasnip.locally_jumpable(-1) then
                         luasnip.jump(-1)
-                    else
-                        fallback()
                     end
                 end, { "i", "s" }),
             }),
