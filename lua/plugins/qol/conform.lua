@@ -21,6 +21,19 @@ return {
                 shfmt = {
                     prepend_args = { "-i", "2" },
                 },
+                biome = {
+                    inherit = true,
+                    append_args = {
+                        "--quote-style",
+                        "single",
+                        "--indent-style",
+                        "space",
+                        "--indent-width",
+                        "4",
+                        "--bracket-spacing",
+                        "false",
+                    },
+                },
             },
             default_format_opts = {
                 lsp_format = "fallback",
