@@ -78,7 +78,7 @@ return {
         end
         Map("n", "<leader>s/", telescope_live_grep_open_files, { desc = "[S]earch [/] in Open Files" })
         Map("n", "<leader>ss", builtin.builtin, { desc = "[S]earch [S]elect Telescope" })
-        Map("n", "<leader>gf", builtin.git_files, { desc = "Search [G]it [F]iles" })
+        Map("n", "<leader>sG", builtin.git_files, { desc = "[S]earch [G]it Files" })
         Map("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles" })
         -- Map("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
         Map("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })

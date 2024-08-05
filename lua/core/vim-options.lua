@@ -84,6 +84,7 @@ vim.opt.splitbelow = true
 -- Set completeopt to have a better completion experience
 vim.opt.completeopt = "menuone,noselect"
 
+-- set termguicolors to enable highlight groups
 vim.opt.termguicolors = true
 
 -- [[ Highlight on yank ]]

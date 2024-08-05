@@ -2,11 +2,6 @@
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
--- set termguicolors to enable highlight groups
--- vim.opt.termguicolors = true
-
-Map("n", "<C-n>", ":Neotree filesystem reveal left toggle<CR>")
-
 return {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",
@@ -48,4 +43,6 @@ return {
             use_libuv_file_watcher = true,
         },
     },
+
+    Map("n", "<C-n>", ":Neotree filesystem reveal left toggle<CR>"),
 }

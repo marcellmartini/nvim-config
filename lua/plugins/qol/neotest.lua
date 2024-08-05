@@ -22,7 +22,10 @@ return {
         require("neotest").setup({
             -- your neotest config here
             adapters = {
-                require("neotest-go"),
+                require("neotest-go")({
+                    args = { "-timeout=2m", "-failfast" },
+                    recursive_run = true,
+                }),
                 require("neotest-jest")({
                     jestCommand = "npm test --",
                     jestConfigFile = "jest.config.json",

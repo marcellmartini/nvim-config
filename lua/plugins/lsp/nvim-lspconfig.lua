@@ -209,6 +209,8 @@ return { -- LSP Configuration & Plugins
 
         -- Configure mason
         require("mason").setup()
+        Map("n", "<leader>m", "<cmd>Mason<CR>", { desc = "[M]ason UI" })
+        Map("n", "<leader>li", ":LspInfo<CR>", { desc = "LSP Info" })
 
         -- You can add other tools here that you want Mason to install
         -- for you, so that they are available from within Neovim.

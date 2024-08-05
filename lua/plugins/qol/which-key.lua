@@ -15,10 +15,9 @@ return {
             { "<leader>s", group = "[S]earch" },
             { "<leader>t", group = "[T]oggle" },
             { "<leader>w", group = "[W]orkspace" },
-        })
-        -- register which-key VISUAL mode
-        -- required for visual <leader>hs (hunk stage) to work
-        require("which-key").add({
+
+            -- register which-key VISUAL mode
+            -- required for visual <leader>hs (hunk stage) to work
             { "<leader>", group = "VISUAL <leader>", mode = "v" },
             { "<leader>h", desc = "Git [H]unk", mode = "v" },
         })

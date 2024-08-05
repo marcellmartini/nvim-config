@@ -19,6 +19,8 @@ vim.opt.rtp:prepend(lazypath)
 
 require("core")
 require("lazy").setup({
+    Map("n", "<leader>L", "<cmd>Lazy<CR>", { desc = "[L]azy UI" }),
+
     spec = {
         { import = "plugins.base" }, -- ./lua/plugins/base/
         { import = "plugins.focus" }, -- ./lua/plugins/focus/
