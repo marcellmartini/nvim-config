@@ -20,6 +20,7 @@ return {
         -- Author: shadmansaleh
         -- Credit: glepnir
         local lualine = require("lualine")
+        local lazy_status = require("lazy.status")
 
         -- Config
         local config = {

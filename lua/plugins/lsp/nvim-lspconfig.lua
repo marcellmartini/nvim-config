@@ -1,5 +1,6 @@
 return { -- LSP Configuration & Plugins
     "neovim/nvim-lspconfig", -- help neovim comunicate with LSP.
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = {
         -- Automatically install LSPs and related tools to stdpath for Neovim
         "williamboman/mason-lspconfig.nvim", -- config lsp
