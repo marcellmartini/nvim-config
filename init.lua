@@ -19,17 +19,20 @@ vim.opt.rtp:prepend(lazypath)
 
 require("core")
 require("lazy").setup({
-    Map("n", "<leader>L", "<cmd>Lazy<CR>", { desc = "[L]azy UI" }),
-
-    spec = {
-        { import = "plugins.base" }, -- ./lua/plugins/base/
-        { import = "plugins.focus" }, -- ./lua/plugins/focus/
-        { import = "plugins.git" }, -- ./lua/plugins/git/
-        { import = "plugins.layout" }, -- ./lua/plugins/layout/
-        { import = "plugins.lsp" }, -- ./lua/plugins/lsp/
-        { import = "plugins.qol" }, -- ./lua/plugins/qol/
+    { import = "plugins.base" }, -- ./lua/plugins/base/
+    { import = "plugins.focus" }, -- ./lua/plugins/focus/
+    { import = "plugins.git" }, -- ./lua/plugins/git/
+    { import = "plugins.layout" }, -- ./lua/plugins/layout/
+    { import = "plugins.lsp" }, -- ./lua/plugins/lsp/
+    { import = "plugins.qol" }, -- ./lua/plugins/qol/
+}, {
+    checker = {
+        enable = true,
+        notify = false,
     },
     change_detection = {
         notify = false,
     },
 })
+
+Map("n", "<leader>L", "<cmd>Lazy<CR>", { desc = "[L]azy UI" })
