@@ -15,6 +15,7 @@ vim.filetype.add({
     pattern = {
         ["requ.*.txt"] = "requirements",
         ["gitconf.*"] = "gitconfig",
+        ["Dockerfile.*"] = "dockerfile",
     },
 })
 
@@ -43,7 +44,7 @@ vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
 
--- vim.opt.colorcolumn = "80"
+vim.opt.colorcolumn = "80"
 
 -- Set highlight on search
 vim.opt.incsearch = true
