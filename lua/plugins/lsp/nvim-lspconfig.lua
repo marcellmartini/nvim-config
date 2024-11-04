@@ -133,21 +133,27 @@ return { -- LSP Configuration & Plugins
                     },
                 },
             },
-            biome = {
-                filetypes = {
-                    "javascript",
-                    "javascriptreact",
-                    "json",
-                    "jsonc",
-                    "typescript",
-                    "typescript.tsx",
-                    "typescriptreact",
-                    "astro",
-                    "svelte",
-                    "vue",
-                },
-                root_dir = util.root_pattern("biome.json", "biome.jsonc", ".git"),
-            },
+            -- javascript
+
+            -- biome = {
+            --     filetypes = {
+            --         "javascript",
+            --         "javascriptreact",
+            --         "json",
+            --         "jsonc",
+            --         "typescript",
+            --         "typescript.tsx",
+            --         "typescriptreact",
+            --         "astro",
+            --         "svelte",
+            --         "vue",
+            --     },
+            --     root_dir = util.root_pattern("biome.json", "biome.jsonc", ".git"),
+            -- },
+            ts_ls = {},
+            -- tailwindcss = {},
+            eslint = {},
+
             -- snyk_ls = {},
             lua_ls = {
                 filetypes = { "lua" },
@@ -202,6 +208,7 @@ return { -- LSP Configuration & Plugins
                 filetypes = { "tf", "terraform", "terraform-vars" },
                 root_dir = util.root_pattern(".terraform", ".git"),
             },
+            dockerls = {},
             -- tflint = {
             --     filetypes = { "terraform" },
             --     cmd = { "tflint", "--langserver" },
@@ -247,9 +254,15 @@ return { -- LSP Configuration & Plugins
             -- Dockerfile
             "hadolint",
 
+            -- javascript
+            "biome",
+
             -- Terraform
             "tflint",
             "trivy",
+
+            -- yaml
+            "yamllint",
         })
         require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
