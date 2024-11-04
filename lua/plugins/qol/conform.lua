@@ -31,7 +31,7 @@ return {
                         "--indent-width",
                         "4",
                         "--bracket-spacing",
-                        "false",
+                        "true",
                     },
                 },
             },
