@@ -35,6 +35,15 @@ return {
         sources = { "filesystem", "buffers", "git_status", "document_symbols" },
         open_files_do_not_replace_types = { "terminal", "Trouble", "trouble", "qf", "Outline" },
         filesystem = {
+            filtered_items = {
+                hide_dotfiles = false,
+                hide_by_name = {
+                    ".git",
+                },
+                always_show = { -- remains visible even if other settings would normally hide it
+                    ".env",
+                },
+            },
             bind_to_cwd = false,
             follow_current_file = {
                 enabled = true,
