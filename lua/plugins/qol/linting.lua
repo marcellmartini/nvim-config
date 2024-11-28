@@ -13,6 +13,7 @@ return {
             sh = { "shellcheck" },
             go = { "staticcheck" },
             dockerfile = { "hadolint" },
+            python = { "flake8", "mypy", "pylint" },
         }
 
         local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
@@ -23,6 +24,13 @@ return {
                 lint.try_lint()
             end,
         })
+
+        -- Set pylint to work in virtualenv
+        -- vim.env.MASON
+        if os.getenv("VIRTUAL_ENV") ~= nil then
+            local venv_path = os.getenv("VIRTUAL_ENV")
+            require("lint").linters.pylint.cmd = venv_path .. "/bin/pylint"
+        end
 
         vim.keymap.set("n", "<leader>lt", function()
             lint.try_lint()

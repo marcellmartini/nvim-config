@@ -33,6 +33,11 @@ return {
                     cwd = function()
                         return vim.fn.getcwd()
                     end,
+                require("neotest-python")({
+                    dap = { justMyCode = false },
+                    args = { "--log-level", "DEBUG" },
+                    runner = "pytest",
+                    pytest_discover_instances = true,
                 }),
             },
         })

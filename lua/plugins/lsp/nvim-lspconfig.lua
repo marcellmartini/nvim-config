@@ -213,6 +213,7 @@ return { -- LSP Configuration & Plugins
             --     filetypes = { "terraform" },
             --     cmd = { "tflint", "--langserver" },
             -- },
+            pyright = {},
         }
 
         -- Configure mason
@@ -260,6 +261,14 @@ return { -- LSP Configuration & Plugins
             -- Terraform
             "tflint",
             "trivy",
+
+            -- python
+            "black",
+            "debugpy",
+            "flake8",
+            "isort",
+            "mypy",
+            "pylint",
 
             -- yaml
             "yamllint",

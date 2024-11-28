@@ -4,14 +4,20 @@ return {
         "rcarriga/nvim-dap-ui",
         "nvim-neotest/nvim-nio",
         "leoluz/nvim-dap-go",
+        "mfussenegger/nvim-dap-python",
+        "theHamsta/nvim-dap-virtual-text",
     },
     config = function()
         local dap = require("dap")
         local dapui = require("dapui")
         local dapgo = require("dap-go")
+        local dappy = require("dap-python")
+        local dapvt = require("nvim-dap-virtual-text")
 
         dapgo.setup()
         dapui.setup()
+        dappy.setup()
+        dapvt.setup()
 
         dap.listeners.before.attach.dapui_config = function()
             dapui.open()

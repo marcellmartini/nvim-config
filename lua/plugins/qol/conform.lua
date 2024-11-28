@@ -12,6 +12,7 @@ return {
                 -- Conform will run the first available formatter
                 javascript = { "biome" },
                 go = { "gofumpt", "goimports-reviser", "golines" },
+                python = { "isort", "black" },
                 sh = { "shfmt", "shellcheck" },
                 terraform = { "tofu_fmt" },
                 tf = { "tofu_fmt" },
