@@ -7,6 +7,7 @@ return {
         "nvim-treesitter/nvim-treesitter",
         "nvim-neotest/neotest-go",
         "nvim-neotest/neotest-jest",
+        "nvim-neotest/neotest-python",
     },
     config = function()
         -- get neotest namespace (api call creates or returns namespace)
@@ -30,9 +31,13 @@ return {
                     jestCommand = "npm test --",
                     jestConfigFile = "jest.config.json",
                     env = { CI = true },
-                    cwd = function()
-                        return vim.fn.getcwd()
+                    cwd = function(path)
+                        return vim.fn.fnamemodify(path, ":p:h") -- Define o diretório de trabalho para o diretório do arquivo de teste
                     end,
+                    discovery = {
+                        enabled = false,
+                    },
+                }),
                 require("neotest-python")({
                     dap = { justMyCode = false },
                     args = { "--log-level", "DEBUG" },
