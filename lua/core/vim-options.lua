@@ -19,6 +19,20 @@ vim.filetype.add({
     },
 })
 
+-- Vim Diagnostic config
+vim.diagnostic.config({
+    float = {
+        show_header = true,
+        source = "always",
+        border = "rounded",
+        focusable = false,
+    },
+})
+
+-- Document bords
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+    border = "rounded",
+})
 -- My nvim configs
 vim.wo.relativenumber = true
 vim.wo.cursorline = true
