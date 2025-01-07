@@ -52,7 +52,8 @@ return { -- Autocompletion
             TypeParameter = "",
         }
 
-        require("luasnip.loaders.from_vscode").lazy_load() -- use friendly-snippets
+        -- use friendly-snippets
+        require("luasnip.loaders.from_vscode").lazy_load()
         luasnip.config.setup({})
 
         cmp.setup({
@@ -61,7 +62,8 @@ return { -- Autocompletion
                 fields = { "abbr", "kind", "menu" },
                 format = lspkind.cmp_format({
                     preset = "codicons",
-                    symbol_map = cmp_kinds, -- The glyphs will be used by `lspkind`
+                    -- The glyphs will be used by `lspkind`
+                    symbol_map = cmp_kinds,
                     async = true,
                     menu = {
                         buffer = "[Buffer]",
@@ -90,7 +92,10 @@ return { -- Autocompletion
                 ["<C-p>"] = cmp.mapping.select_prev_item(),
                 ["<C-d>"] = cmp.mapping.scroll_docs(-4),
                 ["<C-f>"] = cmp.mapping.scroll_docs(4),
-                ["<C-y>"] = cmp.mapping.confirm({ select = true }),
+                ["<C-y>"] = cmp.mapping.confirm({
+                    behavior = cmp.ConfirmBehavior.Replace,
+                    select = true,
+                }),
                 ["<C-Space>"] = cmp.mapping.complete({}),
                 ["<CR>"] = cmp.mapping.confirm({
                     behavior = cmp.ConfirmBehavior.Insert,
