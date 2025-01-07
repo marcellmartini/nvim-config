@@ -41,10 +41,10 @@ Map("n", "<leader>tf", ":tabnew %<CR>", { desc = "Tab [N]ew" })
 Map("n", "<leader>tx", ":tabclose<CR>", { desc = "Tab [C]lose" })
 
 -- window management
-Map("n", "<leader>sv", "<C-w>v", { desc = "[S]plit window [V]ertically" }) -- split window vertically
-Map("n", "<leader>sh", "<C-w>s", { desc = "[S]plit window [H]orizontally" }) -- split window horizontally
-Map("n", "<leader>se", "<C-w>=", { desc = "[S]plit windows [E]qual size" }) -- make split windows equal width & height
-Map("n", "<leader>sx", "<cmd>close<CR>", { desc = "[S]plit e[X]it Rab" }) -- close current split window
+Map("n", "<leader>pv", "<C-w>v", { desc = "[S]plit window [V]ertically" }) -- split window vertically
+Map("n", "<leader>ph", "<C-w>s", { desc = "[S]plit window [H]orizontally" }) -- split window horizontally
+Map("n", "<leader>pe", "<C-w>=", { desc = "[S]plit windows [E]qual size" }) -- make split windows equal width & height
+Map("n", "<leader>px", "<cmd>close<CR>", { desc = "[S]plit e[X]it Rab" }) -- close current split window
 
 -- others
 Map("n", "J", "mzJ`z")
