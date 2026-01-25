@@ -52,6 +52,7 @@ return {
             use_libuv_file_watcher = true,
         },
     },
-
-    Map("n", "<C-n>", ":Neotree filesystem reveal left toggle<CR>"),
+    keys = {
+        { "<C-n>", "<CMD>Neotree filesystem reveal left toggle<CR>", desc = "Toggle Neo-tree" },
+    },
 }
