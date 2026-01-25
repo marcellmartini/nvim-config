@@ -40,17 +40,12 @@ return {
             -- See `:help telescope` and `:help telescope.setup()`
             defaults = {
                 path_display = { "smart" },
-                --     mappings = {
-                --         i = {
-                --             ["<C-u>"] = false,
-                --             ["<C-d>"] = false,
-                --         },
-                --     },
             },
             extensions = {
                 ["ui-select"] = {
                     require("telescope.themes").get_dropdown(),
                 },
+                fzf = {},
             },
         })
 
@@ -80,11 +75,22 @@ return {
         Map("n", "<leader>ss", builtin.builtin, { desc = "[S]earch [S]elect Telescope" })
         Map("n", "<leader>sG", builtin.git_files, { desc = "[S]earch [G]it Files" })
         Map("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles" })
-        -- Map("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
+        Map("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
         Map("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
         Map("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
         Map("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
         Map("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
+        Map("n", "<leader>se", function()
+            require("telescope.builtin").find_files({
+                cwd = vim.fn.stdpath("config"),
+            })
+        end, { desc = "[S]earch [C]onfig" })
+
+        Map("n", "<leader>sp", function()
+            require("telescope.builtin").find_files({
+                cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy"),
+            })
+        end, { desc = "[S]earch [P]ackages" })
 
         Map(
             "n",
@@ -92,6 +98,7 @@ return {
             "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>",
             { desc = "[S]earch [A]ll" }
         )
+
         Map("n", "<leader>sb", "<cmd> Telescope buffers <CR>", { desc = "[S]earch [B]uffers" })
         Map("n", "<leader>so", "<cmd> Telescope oldfiles <CR>", { desc = "[S]earch [O]ldfiles" })
         Map("n", "<leader>sC", "<cmd> Telescope colorscheme <CR>", { desc = "[S]earch [C]olorscheme" })
