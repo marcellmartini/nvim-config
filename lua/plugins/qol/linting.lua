@@ -5,15 +5,15 @@ return {
         local lint = require("lint")
 
         lint.linters_by_ft = {
-            javascript = { "biomejs" },
-            typescript = { "biomejs" },
-            terraform = { "tflint", "trivy" },
-            tf = { "tflint", "trivy" },
-            yaml = { "yamllint" },
+            -- javascript = { "biomejs" },
+            -- typescript = { "biomejs" },
+            -- terraform = { "tflint", "trivy" },
+            -- tf = { "tflint", "trivy" },
+            -- yaml = { "yamllint" },
             sh = { "shellcheck" },
             go = { "staticcheck" },
             dockerfile = { "hadolint" },
-            python = { "flake8", "mypy", "pylint" },
+            python = { "pylint", "bandit" },
         }
 
         local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })

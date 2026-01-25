@@ -14,6 +14,7 @@ return {
         vim.defer_fn(function()
             require("nvim-treesitter.configs").setup({
                 -- Add languages to be installed here that you want installed for treesitter
+                additional_vim_regex_highlighting = false,
                 ensure_installed = {
                     "bash",
                     "c",
@@ -23,6 +24,7 @@ return {
                     "json",
                     "lua",
                     "markdown",
+                    "markdown_inline",
                     "python",
                     "query",
                     "terraform",

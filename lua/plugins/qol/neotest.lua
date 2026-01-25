@@ -40,7 +40,7 @@ return {
                 }),
                 require("neotest-python")({
                     dap = { justMyCode = false },
-                    args = { "--log-level", "DEBUG" },
+                    args = { "--cov", "--log-level", "DEBUG" },
                     runner = "pytest",
                     pytest_discover_instances = true,
                 }),

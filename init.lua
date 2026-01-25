@@ -21,6 +21,7 @@ require("core")
 require("lazy").setup({
     spec = {
         { import = "plugins.base" }, -- ./lua/plugins/base/
+        { import = "plugins.ai" }, -- ./lua/plugins/ai/
         { import = "plugins.focus" }, -- ./lua/plugins/focus/
         { import = "plugins.git" }, -- ./lua/plugins/git/
         { import = "plugins.layout" }, -- ./lua/plugins/layout/
