@@ -29,7 +29,7 @@ vim.diagnostic.config({
     },
 })
 
--- Document bords
+-- Document borders
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
     border = "rounded",
 })
@@ -55,8 +55,6 @@ vim.opt.backup = false
 vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
-
-vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "80"
 
@@ -118,7 +116,14 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
     pattern = { "*" },
     callback = function()
-        vim.fn.system("tmux rename-session " .. vim.fn.system("basename $(git rev-parse --show-toplevel)"))
+        if vim.env.TMUX == nil then
+            return
+        end
+        local git_root = vim.fn.systemlist("git rev-parse --show-toplevel 2>/dev/null")[1]
+        if vim.v.shell_error == 0 and git_root and git_root ~= "" then
+            local basename = vim.fn.fnamemodify(git_root, ":t")
+            vim.fn.system("tmux rename-session " .. vim.fn.shellescape(basename))
+        end
     end,
 })
 
