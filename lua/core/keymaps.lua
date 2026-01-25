@@ -21,7 +21,7 @@ Map("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message
 -- Map("n", "<leader>e", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 -- Map("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
--- Resie with arrow keys
+-- Resize with arrow keys
 Map("n", "<C-Up>", ":resize -2<CR>")
 Map("n", "<C-Down>", ":resize +2<CR>")
 Map("n", "<C-Left>", ":vertical resize -2<CR>")
@@ -44,7 +44,7 @@ Map("n", "<leader>tx", ":tabclose<CR>", { desc = "Tab [C]lose" })
 Map("n", "<leader>pv", "<C-w>v", { desc = "[S]plit window [V]ertically" }) -- split window vertically
 Map("n", "<leader>ph", "<C-w>s", { desc = "[S]plit window [H]orizontally" }) -- split window horizontally
 Map("n", "<leader>pe", "<C-w>=", { desc = "[S]plit windows [E]qual size" }) -- make split windows equal width & height
-Map("n", "<leader>px", "<cmd>close<CR>", { desc = "[S]plit e[X]it Rab" }) -- close current split window
+Map("n", "<leader>px", "<cmd>close<CR>", { desc = "Close split" }) -- close current split window
 
 -- others
 Map("n", "J", "mzJ`z")
