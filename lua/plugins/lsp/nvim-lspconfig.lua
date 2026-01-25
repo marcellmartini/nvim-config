@@ -1,12 +1,12 @@
-return { -- LSP Configuration & Plugins
+return {                     -- LSP Configuration & Plugins
     "neovim/nvim-lspconfig", -- help neovim comunicate with LSP.
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
         -- Automatically install LSPs and related tools to stdpath for Neovim
-        "williamboman/mason-lspconfig.nvim", -- config lsp
-        "williamboman/mason.nvim", -- software install
-        "hrsh7th/nvim-cmp", -- autocomplete snippet
+        "williamboman/mason.nvim",                   -- software install
+        "williamboman/mason-lspconfig.nvim",         -- config lsp
         "WhoIsSethDaniel/mason-tool-installer.nvim", -- mason Automatically install software
+        "hrsh7th/nvim-cmp",                          -- autocomplete snippet
 
         -- Useful status updates for LSP.
         -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
@@ -91,6 +91,12 @@ return { -- LSP Configuration & Plugins
         capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
         local util = require("lspconfig.util")
+
+        local border = "rounded"
+        local rounded_handlers = {
+            ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
+            ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
+        }
 
         local servers = {
             gopls = {
@@ -237,17 +243,18 @@ return { -- LSP Configuration & Plugins
             -- 'shellharden',
 
             -- GO
-            "gofumpt", -- used in conform.nvim
+            "gofumpt",           -- used in conform.nvim
             "goimports-reviser", -- used in conform.nvim
-            "golines", -- used in conform.nvim
-            "gomodifytags", -- used in conform.nvim
-            "impl", -- used in conform.nvim
-            "staticcheck", -- used in gopls configure in nvim-lspconfig
+            "golines",           -- used in conform.nvim
+            "gomodifytags",      -- used in conform.nvim
+            "impl",              -- used in conform.nvim
+            "staticcheck",       -- used in gopls configure in nvim-lspconfig
             -- 'gotests',
-            "delve", -- used in nvim-dap-go
+            "delve",             -- used in nvim-dap-go
 
             -- Ansible
-            -- 'ansible-lint',
+            "ansible-lint",
+            "ansiblels",
 
             -- Makefile
             -- 'checkmake',
@@ -263,6 +270,7 @@ return { -- LSP Configuration & Plugins
             "trivy",
 
             -- python
+            "bandit",
             "black",
             "debugpy",
             "flake8",
@@ -284,6 +292,7 @@ return { -- LSP Configuration & Plugins
                     -- certain features of an LSP (for example, turning off
                     -- formatting for tsserver)
                     server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+                    server.handlers = vim.tbl_deep_extend("force", {}, rounded_handlers, server.handlers or {})
                     require("lspconfig")[server_name].setup(server)
                 end,
             },
