@@ -1,100 +1,112 @@
 return {
     -- Highlight, edit, and navigate code
     "nvim-treesitter/nvim-treesitter",
-    event = { "BufReadPre", "BufNewFile" },
+    branch = "main",
+    lazy = false,
+    build = ":TSInstall bash c go gomod gosum json lua markdown markdown_inline query terraform vim vimdoc yaml",
     dependencies = {
-        "nvim-treesitter/nvim-treesitter-textobjects",
+        {
+            "nvim-treesitter/nvim-treesitter-textobjects",
+            branch = "main",
+        },
         "nvim-treesitter/nvim-treesitter-context",
     },
-    build = ":TSUpdate",
     config = function()
-        -- [[ Configure Treesitter ]]
-        -- See `:help nvim-treesitter`
-        -- Defer Treesitter setup after first render to improve startup time of 'nvim {filename}'
-        vim.defer_fn(function()
-            require("nvim-treesitter.configs").setup({
-                -- Add languages to be installed here that you want installed for treesitter
-                additional_vim_regex_highlighting = false,
-                ensure_installed = {
-                    "bash",
-                    "c",
-                    "go",
-                    "gomod",
-                    "gosum",
-                    "json",
-                    "lua",
-                    "markdown",
-                    "markdown_inline",
-                    "python",
-                    "query",
-                    "terraform",
-                    "vim",
-                    "vimdoc",
-                    "yaml",
-                },
-                ignore_install = { "tmux" },
-                sync_install = false,
-                modules = {},
+        -- Install heavy parsers asynchronously (Python grammar is very large)
+        for _, lang in ipairs({ "python" }) do
+            local ok = pcall(vim.treesitter.language.inspect, lang)
+            if not ok then
+                require("nvim-treesitter").install({ lang })
+            end
+        end
 
-                -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
-                auto_install = true,
+        -- Track which languages we've already checked this session
+        local checked_langs = {}
 
-                highlight = { enable = true },
-                indent = { enable = true },
-                incremental_selection = {
-                    enable = true,
-                    keymaps = {
-                        init_selection = "<c-space>",
-                        node_incremental = "<c-space>",
-                        scope_incremental = "<c-s>",
-                        node_decremental = "<M-space>",
-                    },
+        vim.api.nvim_create_autocmd("FileType", {
+            callback = function(event)
+                local lang = vim.treesitter.language.get_lang(event.match)
+                if not lang then return end
+
+                -- Skip if already checked this session
+                if checked_langs[lang] then
+                    if vim.treesitter.get_parser(event.buf, nil, { error = false }) then
+                        vim.treesitter.start(event.buf)
+                        vim.bo[event.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                    end
+                    return
+                end
+                checked_langs[lang] = true
+
+                -- Check if parser is installed, if not install it
+                local ok = pcall(vim.treesitter.language.inspect, lang)
+                if not ok then
+                    local available = require("nvim-treesitter.parsers")
+                    if available[lang] then
+                        require("nvim-treesitter").install({ lang })
+                    end
+                end
+
+                -- Enable highlighting if parser is available
+                if vim.treesitter.get_parser(event.buf, nil, { error = false }) then
+                    vim.treesitter.start(event.buf)
+                    vim.bo[event.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                end
+            end,
+        })
+
+        -- Re-enable highlighting after parser installation
+        vim.api.nvim_create_autocmd("User", {
+            pattern = "TSUpdate",
+            callback = function()
+                local buf = vim.api.nvim_get_current_buf()
+                if vim.treesitter.get_parser(buf, nil, { error = false }) then
+                    vim.treesitter.start(buf)
+                    vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                end
+            end,
+        })
+
+        -- Textobjects configuration
+        require("nvim-treesitter-textobjects").setup({
+            select = {
+                lookahead = true,
+                keymaps = {
+                    ["aa"] = "@parameter.outer",
+                    ["ia"] = "@parameter.inner",
+                    ["af"] = "@function.outer",
+                    ["if"] = "@function.inner",
+                    ["ac"] = "@class.outer",
+                    ["ic"] = "@class.inner",
                 },
-                textobjects = {
-                    select = {
-                        enable = true,
-                        lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-                        keymaps = {
-                            -- You can use the capture groups defined in textobjects.scm
-                            ["aa"] = "@parameter.outer",
-                            ["ia"] = "@parameter.inner",
-                            ["af"] = "@function.outer",
-                            ["if"] = "@function.inner",
-                            ["ac"] = "@class.outer",
-                            ["ic"] = "@class.inner",
-                        },
-                    },
-                    move = {
-                        enable = true,
-                        set_jumps = true, -- whether to set jumps in the jumplist
-                        goto_next_start = {
-                            ["]m"] = "@function.outer",
-                            ["]]"] = "@class.outer",
-                        },
-                        goto_next_end = {
-                            ["]M"] = "@function.outer",
-                            ["]["] = "@class.outer",
-                        },
-                        goto_previous_start = {
-                            ["[m"] = "@function.outer",
-                            ["[["] = "@class.outer",
-                        },
-                        goto_previous_end = {
-                            ["[M"] = "@function.outer",
-                            ["[]"] = "@class.outer",
-                        },
-                    },
-                    swap = {
-                        enable = true,
-                        swap_next = {
-                            ["<leader>a"] = "@parameter.inner",
-                        },
-                        swap_previous = {
-                            ["<leader>A"] = "@parameter.inner",
-                        },
-                    },
+            },
+            move = {
+                set_jumps = true,
+                goto_next_start = {
+                    ["]m"] = "@function.outer",
+                    ["]]"] = "@class.outer",
                 },
-            })
-        end, 0)
+                goto_next_end = {
+                    ["]M"] = "@function.outer",
+                    ["]["] = "@class.outer",
+                },
+                goto_previous_start = {
+                    ["[m"] = "@function.outer",
+                    ["[["] = "@class.outer",
+                },
+                goto_previous_end = {
+                    ["[M"] = "@function.outer",
+                    ["[]"] = "@class.outer",
+                },
+            },
+            swap = {
+                swap_next = {
+                    ["<leader>a"] = "@parameter.inner",
+                },
+                swap_previous = {
+                    ["<leader>A"] = "@parameter.inner",
+                },
+            },
+        })
     end,
 }
