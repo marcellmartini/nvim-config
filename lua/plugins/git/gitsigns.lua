@@ -49,6 +49,7 @@ return {
             map("n", "<leader>hu", gs.undo_stage_hunk, { desc = "undo stage hunk" })
             map("n", "<leader>hR", gs.reset_buffer, { desc = "git Reset buffer" })
             map("n", "<leader>hp", gs.preview_hunk, { desc = "preview git hunk" })
+            map("n", "<leader>hi", gs.preview_hunk_inline, { desc = "preview git hunk inline" })
             map("n", "<leader>hb", function()
                 gs.blame_line({ full = false })
             end, { desc = "git blame line" })
