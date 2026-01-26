@@ -12,9 +12,9 @@ return {                     -- LSP Configuration & Plugins
         -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
         { "j-hui/fidget.nvim", opts = {} },
 
-        -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
+        -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
         -- used for completion, annotations and signatures of Neovim apis
-        { "folke/neodev.nvim", opts = {} },
+        { "folke/lazydev.nvim", ft = "lua", opts = { library = { "lazy.nvim" } } },
     },
     lazy = false,
     config = function()
@@ -91,12 +91,6 @@ return {                     -- LSP Configuration & Plugins
         capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
         local util = require("lspconfig.util")
-
-        local border = "rounded"
-        local rounded_handlers = {
-            ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
-            ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
-        }
 
         local servers = {
             gopls = {
@@ -292,7 +286,6 @@ return {                     -- LSP Configuration & Plugins
                     -- certain features of an LSP (for example, turning off
                     -- formatting for tsserver)
                     server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-                    server.handlers = vim.tbl_deep_extend("force", {}, rounded_handlers, server.handlers or {})
                     require("lspconfig")[server_name].setup(server)
                 end,
             },
