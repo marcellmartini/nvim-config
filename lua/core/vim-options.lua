@@ -29,10 +29,8 @@ vim.diagnostic.config({
     },
 })
 
--- Document borders
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-    border = "rounded",
-})
+vim.o.winborder = "rounded"
+
 -- My nvim configs
 vim.wo.relativenumber = true
 vim.wo.cursorline = true

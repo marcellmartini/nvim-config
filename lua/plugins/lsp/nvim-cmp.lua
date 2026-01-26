@@ -88,7 +88,13 @@ return { -- Autocompletion
                 completeopt = "menu,menuone,noinsert,noselect",
             },
             mapping = cmp.mapping.preset.insert({
-                ["<C-n>"] = cmp.mapping.select_next_item(),
+                ["<C-n>"] = cmp.mapping(function()
+                    if cmp.visible() then
+                        cmp.select_next_item()
+                    else
+                        cmp.complete()
+                    end
+                end, { "i" }),
                 ["<C-p>"] = cmp.mapping.select_prev_item(),
                 ["<C-d>"] = cmp.mapping.scroll_docs(-4),
                 ["<C-f>"] = cmp.mapping.scroll_docs(4),
