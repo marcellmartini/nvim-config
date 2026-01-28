@@ -3,7 +3,7 @@ return {
     "nvim-treesitter/nvim-treesitter",
     branch = "main",
     lazy = false,
-    build = ":TSInstall bash c go gomod gosum json lua markdown markdown_inline query terraform vim vimdoc yaml",
+    build = ":TSInstall bash c go gomod gosum json lua markdown markdown_inline python query terraform vim vimdoc yaml",
     dependencies = {
         {
             "nvim-treesitter/nvim-treesitter-textobjects",
