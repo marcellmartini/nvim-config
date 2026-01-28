@@ -109,6 +109,21 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     pattern = "*",
 })
 
+-- [[ Remove trailing whitespace and blank lines on save ]]
+local trim_group = vim.api.nvim_create_augroup("TrimWhitespace", { clear = true })
+vim.api.nvim_create_autocmd("BufWritePre", {
+    group = trim_group,
+    pattern = "*",
+    callback = function()
+        local save_cursor = vim.fn.getpos(".")
+        -- Remove trailing whitespace
+        vim.cmd([[%s/\s\+$//e]])
+        -- Remove trailing blank lines at end of file
+        vim.cmd([[%s/\n\+\%$//e]])
+        vim.fn.setpos(".", save_cursor)
+    end,
+})
+
 -- automatically set the tmux session name
 -- to the git basename directory
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
