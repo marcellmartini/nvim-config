@@ -19,6 +19,9 @@ return {
                 ["terraform-vars"] = { "tofu_fmt" },
             },
             formatters = {
+                isort = {
+                    prepend_args = { "--profile", "black" },
+                },
                 shfmt = {
                     prepend_args = { "-i", "2" },
                 },
